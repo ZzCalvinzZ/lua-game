@@ -1,29 +1,31 @@
-Player = class('Player')
+Player = Class {
+	init = function(self, pos)
+		self.pos = pos
+		self.image = love.graphics.newImage("images/love-ball.png")
+	end,
 
-function Player:initialize(x, y)
-  self.x = x
-  self.y = y
-  self.image = love.graphics.newImage("images/love-ball.png")
-end
+	speed = 5,
 
-function Player:update(dt)
-    if leftkey() then
-		self.x = self.x - 100 * dt
-    end
-    if rightkey() then
-		self.x = self.x + 100 * dt
-    end
-    if upkey() then
-		self.y = self.y - 100 * dt
-    end
-    if downkey() then
-		self.y = self.y + 100 * dt
-    end
+	update = function(self, dt)
+		if leftkey() then
+			self.pos.x = self.pos.x - 100 * dt
+		end
+		if rightkey() then
+			self.pos.x = self.pos.x + 100 * dt
+		end
+		if upkey() then
+			self.pos.y = self.pos.y - 100 * dt
+		end
+		if downkey() then
+			self.pos.y = self.pos.y + 100 * dt
+		end
 
-end
+	end,
 
-function Player:draw()
+	draw = function(self)
+		love.graphics.draw(self.image, self.pos.x, self.pos.y)
+	end,
 
-	love.graphics.draw(self.image, self.x, self.y)
-end
+}
+
 
