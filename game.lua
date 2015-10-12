@@ -1,3 +1,5 @@
+
+--setup keys
 function rightkey()
 	local s = controls["right"]
 	return checkkey(s)

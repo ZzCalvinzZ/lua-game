@@ -1,22 +1,22 @@
 Player = Class {
 	init = function(self, pos)
 		self.pos = pos
-		self.image = love.graphics.newImage("images/love-ball.png")
+		self.image = love.graphics.newImage("images/mario.png")
 	end,
 
 	speed = 5,
 
 	update = function(self, dt)
-		if leftkey() then
+		if game.controls:leftkey() then
 			self.pos.x = self.pos.x - 100 * dt
 		end
-		if rightkey() then
+		if game.controls:rightkey() then
 			self.pos.x = self.pos.x + 100 * dt
 		end
-		if upkey() then
+		if game.controls:upkey() then
 			self.pos.y = self.pos.y - 100 * dt
 		end
-		if downkey() then
+		if game.controls:downkey() then
 			self.pos.y = self.pos.y + 100 * dt
 		end
 
@@ -28,4 +28,4 @@ Player = Class {
 
 }
 
-
+return Player
