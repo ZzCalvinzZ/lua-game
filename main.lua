@@ -9,13 +9,12 @@ loveframes = require "loveframes"
 --my stuff
 Controls = require "controls"
 
+--require = "collisions"
 physics = require "physics"
-Player = require "player"
+Sprite = require "sprites.sprite"
+Player = require "sprites.player"
 
 require "gamestates"
-
-
-bgd=love.graphics.newImage('/images/test_bgd.png')
 
 function love.load()
 	Gamestate.registerEvents()

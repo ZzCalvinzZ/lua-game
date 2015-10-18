@@ -1,7 +1,10 @@
-Player = Class {
+Player = Class { 
+	
+	__includes = Sprite,
+
 	init = function(self, pos)
-		self.pos = pos
-		self.image = love.graphics.newImage("images/mario.png")
+		Sprite.init(self, pos, love.graphics.newImage("images/mario.png"))
+		print(self.pos)
 	end,
 
 	speed = 5,
@@ -21,11 +24,6 @@ Player = Class {
 		end
 
 	end,
-
-	draw = function(self)
-		love.graphics.draw(self.image, self.pos.x, self.pos.y)
-	end,
-
 }
 
 return Player

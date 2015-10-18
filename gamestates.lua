@@ -33,29 +33,35 @@ Game = Class {
 	enter = function(self)
 		controls = new
 
-		player = Player(Vector(400, 200))
-		cam = Camera(player.pos.x, player.pos.y)
+		self.bgd= Sprite(Vector(0,0), love.graphics.newImage('/images/test_bgd.png'))
+
+		self.player = Player(Vector(400, 200))
+		print(self.player.pos)
+		self.camera = Camera(self.player.pos.x, self.player.pos.y)
 	end,
 
 	update = function(self,dt)
-		player:update(dt)
-
-		local width, height, flags = love.window.getMode()
-
-		if (width * .8 >= player.pos.x  and player.pos.x <= width * .2) or 
-			(height * .8 >= player.pos.y and player.pos.y <= height * .2) then
-			local dx,dy = player.pos.x - cam.x, player.pos.y - cam.y
-			cam:move(dx/2, dy/2)
-		end
-
+		self.player:update(dt)
+		self:moveCamera()
 	end,
 
 	draw = function(self)
-		cam:attach()
-		love.graphics.draw(bgd,0,0)
-		player:draw()
-		cam:detach()
+		self.camera:attach()
+		self.bgd:draw()
+		self.player:draw()
+		self.camera:detach()
 	end,
+
+	moveCamera = function(self)
+		local xMiddle = love.window.getWidth() / 2
+		local yMiddle = love.window.getHeight() / 2
+
+		print(self.camera.x, self.bgd.pos.x + xMiddle)
+		if self.camera.x >= self.bgd.pos.x + xMiddle or self.player.pos.x >  xMiddle then
+			local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
+			self.camera:move(dx/2, dy/2)
+		end
+	end
 
 }
 
