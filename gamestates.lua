@@ -56,8 +56,11 @@ Game = Class {
 		local xMiddle = self.xMiddle
 		local yMiddle = self.yMiddle
 
+		local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
+
 		local function cantPanLeft()
 			if self.camera.x <= self.bgd.pos.x + xMiddle and self.player.pos.x < xMiddle then
+				self.camera.x = self.bgd.pos.x + xMiddle
 				return true
 			else
 				return false
@@ -66,6 +69,7 @@ Game = Class {
 
 		local function cantPanRight()
 			if self.camera.x >= (self.bgd.pos.x + self.bgd.image:getWidth() - xMiddle) and self.player.pos.x > xMiddle then
+				self.camera.x = (self.bgd.pos.x + self.bgd.image:getWidth() - xMiddle)
 				return true
 			else
 				return false
@@ -74,6 +78,7 @@ Game = Class {
 
 		local function cantPanUp()
 			if self.camera.y <= self.bgd.pos.y + yMiddle and self.player.pos.y < yMiddle then
+				self.camera.y = self.bgd.pos.y + yMiddle
 				return true
 			else
 				return false
@@ -81,20 +86,21 @@ Game = Class {
 		end
 
 		local function cantPanDown()
-			if self.camera.y >= (self.bgd.pos.y + self.bgd.image:getHeight() - yMiddle) and self.player.pos.y > yMiddle then
+			if self.camera.y >= (self.bgd.pos.y + (self.bgd.image:getHeight() * self.bgd.scale) - yMiddle) and self.player.pos.y > yMiddle then
+				self.camera.y = (self.bgd.pos.y + (self.bgd.image:getHeight() * self.bgd.scale) - yMiddle)
 				return true
 			else
 				return false
 			end
 		end
 
-		local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
 
+		print(self.bgd.image:getHeight())
 		if (dx < 0 and cantPanLeft()) or (dx > 0 and cantPanRight()) then
 			dx = 0
 		end
 
-		if (dy < 0 and cantPanUp()) or (dx > 0 and cantPanDown()) then
+		if (dy < 0 and cantPanUp()) or (dy > 0 and cantPanDown()) then
 			dy = 0
 		end
 
