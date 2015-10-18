@@ -6,7 +6,6 @@ Menu = Class {
 
 	keyreleased = function(self,key, code)
 		if key == 'return' then
-			print ()
 			Gamestate.switch(game)
 		end
 	end,
@@ -33,11 +32,12 @@ Game = Class {
 	enter = function(self)
 		controls = new
 
-		self.bgd= Sprite(Vector(0,0), love.graphics.newImage('/images/test_bgd.png'))
+		self.xMiddle = love.window.getWidth() / 2
+		self.yMiddle = love.window.getHeight() / 2
 
-		self.player = Player(Vector(400, 200))
-		print(self.player.pos)
-		self.camera = Camera(self.player.pos.x, self.player.pos.y)
+		self.bgd= Background(Vector(0,0))
+		self.player = Player(Vector(self.bgd.pos.x + 200, self.bgd.image:getHeight() - 100))
+		self.camera = Camera(self.bgd.pos.x + self.xMiddle, self.bgd.image:getHeight() - self.yMiddle)
 	end,
 
 	update = function(self,dt)
@@ -53,14 +53,52 @@ Game = Class {
 	end,
 
 	moveCamera = function(self)
-		local xMiddle = love.window.getWidth() / 2
-		local yMiddle = love.window.getHeight() / 2
+		local xMiddle = self.xMiddle
+		local yMiddle = self.yMiddle
 
-		print(self.camera.x, self.bgd.pos.x + xMiddle)
-		if self.camera.x >= self.bgd.pos.x + xMiddle or self.player.pos.x >  xMiddle then
-			local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
-			self.camera:move(dx/2, dy/2)
+		local function cantPanLeft()
+			if self.camera.x <= self.bgd.pos.x + xMiddle and self.player.pos.x < xMiddle then
+				return true
+			else
+				return false
+			end
 		end
+
+		local function cantPanRight()
+			if self.camera.x >= (self.bgd.pos.x + self.bgd.image:getWidth() - xMiddle) and self.player.pos.x > xMiddle then
+				return true
+			else
+				return false
+			end
+		end
+
+		local function cantPanUp()
+			if self.camera.y <= self.bgd.pos.y + yMiddle and self.player.pos.y < yMiddle then
+				return true
+			else
+				return false
+			end
+		end
+
+		local function cantPanDown()
+			if self.camera.y >= (self.bgd.pos.y + self.bgd.image:getHeight() - yMiddle) and self.player.pos.y > yMiddle then
+				return true
+			else
+				return false
+			end
+		end
+
+		local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
+
+		if (dx < 0 and cantPanLeft()) or (dx > 0 and cantPanRight()) then
+			dx = 0
+		end
+
+		if (dy < 0 and cantPanUp()) or (dx > 0 and cantPanDown()) then
+			dy = 0
+		end
+
+		self.camera:move(dx/2, dy/2)
 	end
 
 }

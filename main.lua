@@ -12,6 +12,7 @@ Controls = require "controls"
 --require = "collisions"
 physics = require "physics"
 Sprite = require "sprites.sprite"
+Background = require "sprites.background"
 Player = require "sprites.player"
 
 require "gamestates"

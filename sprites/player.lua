@@ -4,10 +4,9 @@ Player = Class {
 
 	init = function(self, pos)
 		Sprite.init(self, pos, love.graphics.newImage("images/mario.png"))
-		print(self.pos)
 	end,
 
-	speed = 5,
+	speed = 20,
 
 	update = function(self, dt)
 		if game.controls:leftkey() then
