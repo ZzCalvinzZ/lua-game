@@ -1,4 +1,4 @@
-Background = Class { 
+local Background = Class { 
 	
 	__includes = Sprite,
 

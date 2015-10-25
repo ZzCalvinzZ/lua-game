@@ -1,29 +1,3 @@
-Menu = Class {
-
-	draw = function(self)
-		love.graphics.print("Press Enter to continue", 10, 10)
-	end,
-
-	keyreleased = function(self,key, code)
-		if key == 'return' then
-			Gamestate.switch(game)
-		end
-	end,
-
-	--function menu:keyreleased(key)
-		--if key == 'up' then
-			--Buttons.selectPrevious()
-		--elseif key == 'down' then
-			--Buttons.selectNext()
-		--else
-			--Buttons.active:onClick()
-		--end
-	--end
-}
-
-menu = Menu()
-
-
 Game = Class {
 	init = function(self)
 		self.controls = Controls()
@@ -32,12 +6,9 @@ Game = Class {
 	enter = function(self)
 		controls = new
 
-		self.xMiddle = love.window.getWidth() / 2
-		self.yMiddle = love.window.getHeight() / 2
-
 		self.bgd= Background(Vector(0,0))
 		self.player = Player(Vector(self.bgd.pos.x + 200, self.bgd.image:getHeight() - 100))
-		self.camera = Camera(self.bgd.pos.x + self.xMiddle, self.bgd.image:getHeight() - self.yMiddle)
+		self.camera = Camera(self.bgd.pos.x + xMiddle, self.bgd.image:getHeight() - yMiddle)
 	end,
 
 	update = function(self,dt)
@@ -53,9 +24,6 @@ Game = Class {
 	end,
 
 	moveCamera = function(self)
-		local xMiddle = self.xMiddle
-		local yMiddle = self.yMiddle
-
 		local dx,dy = self.player.pos.x - self.camera.x, self.player.pos.y - self.camera.y
 
 		local function cantPanLeft()
@@ -94,8 +62,6 @@ Game = Class {
 			end
 		end
 
-
-		print(self.bgd.image:getHeight())
 		if (dx < 0 and cantPanLeft()) or (dx > 0 and cantPanRight()) then
 			dx = 0
 		end

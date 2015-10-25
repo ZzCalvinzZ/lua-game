@@ -1,4 +1,4 @@
-Player = Class { 
+local Player = Class { 
 	
 	__includes = Sprite,
 

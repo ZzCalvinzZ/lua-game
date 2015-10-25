@@ -1,4 +1,4 @@
-Sprite = Class {
+local Sprite = Class {
 	init = function(self, pos, image)
 		self.pos = pos
 		self.image = image

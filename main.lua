@@ -15,9 +15,16 @@ Sprite = require "sprites.sprite"
 Background = require "sprites.background"
 Player = require "sprites.player"
 
+--menu stuff
+MenuList = require "menu.menulist"
+ListItem = require "menu.listitem"
+
 require "gamestates"
 
 function love.load()
+	xMiddle = love.window.getWidth() / 2
+	yMiddle = love.window.getHeight() / 2
+
 	Gamestate.registerEvents()
 	Gamestate.switch(menu)
 end
