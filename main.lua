@@ -22,6 +22,8 @@ ListItem = require "menu.listitem"
 require "gamestates"
 
 function love.load()
+	--love.window.setMode(0,0,{fullscreen=true})
+
 	xMiddle = love.window.getWidth() / 2
 	yMiddle = love.window.getHeight() / 2
 
@@ -45,12 +47,15 @@ function love.mousereleased(x, y, button)
 	loveframes.mousereleased(x, y, button)
 end
 
-function love.keypressed(x, y, button)
-	loveframes.keypressed(x, y, button)
+function love.keypressed(key, isRepeat)
+	if key == 'q' then
+		love.event.quit()
+	end
+	loveframes.keypressed(key, isRepeat)
 end
 
-function love.keyreleased(x, y, button)
-	loveframes.keyreleased(x, y, button)
+function love.keyreleased(key)
+	loveframes.keyreleased(key)
 end
 
 function love.textinput(text)
